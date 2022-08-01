@@ -10,7 +10,7 @@
 
 ## Endpoints:
 ### Add task:
-Parameters: name, description, status (pending/complete)
+Parameters: name, status (pending/complete)
 Returns: task id
 
 ### Delete task:
