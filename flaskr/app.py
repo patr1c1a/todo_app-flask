@@ -6,9 +6,10 @@ app = Flask(__name__)
 
 @app.route('/add/')
 def add():
-    task = request.args.get("task_name")
-    result = TaskManager.add_new_task(task)
-    return jsonify(result)
+    task_name = request.args.get("task_name")
+    task_status = request.args.get("task_status")
+    result = manager.add_new_task(task_name, task_status)
+    return jsonify([e.serialize() for e in result])
 
 
 if __name__ == '__main__':
