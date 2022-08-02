@@ -4,10 +4,10 @@ from flaskr.task_manager import TaskManager
 app = Flask(__name__)
 
 
-@app.route("/add/")
+@app.route("/add/", methods=["POST"])
 def add() -> Response:
     """
-    Endpoint (supported verbs: GET).
+    Endpoint (supported verbs: POST).
     Gets parameters from the request to create a new Task object, then adds it to storage.
     :return: Response (JSON)
     """
