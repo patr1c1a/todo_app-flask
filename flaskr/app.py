@@ -13,8 +13,9 @@ def add() -> Response:
     """
     task_name = request.args.get("task_name")
     task_status = request.args.get("task_status")
-    result = manager.add_new_task(task_name, task_status)
-    return jsonify([e.serialize() for e in result])
+    task = manager.create_task(name=task_name, status=task_status)
+    tasks = manager.add_new_task(task=task)
+    return jsonify([task.serialize() for task in tasks])
 
 
 if __name__ == '__main__':

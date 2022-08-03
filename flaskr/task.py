@@ -1,9 +1,10 @@
 import enum
+from typing import Dict
 
 
-class TaskStatus(enum.Enum):
-	PENDING = 1
-	DONE = 2
+class TaskStatus(str, enum.Enum):
+	PENDING = "PENDING"
+	DONE = "DONE"
 
 
 class Task:
@@ -12,10 +13,10 @@ class Task:
 		self.name = name
 		self.status = status
 
-	def serialize(self) -> dict:
+	def serialize(self) -> Dict:
 		"""
 		Converts class attributes to a dict so it can be easily serialized into JSON.
-		:return: dict
+		:return: Dict
 		"""
 		return {"task_id": self.id,
 			"task_name": self.name,
