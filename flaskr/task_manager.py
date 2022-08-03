@@ -14,8 +14,8 @@ class TaskManager:
 		:return: Task
 		"""
 		next_id = len(self.storage) + 1
-		status = TaskStatus[status.upper()]
-		return Task(task_id=next_id, name=name, status=status)
+		enum_status = TaskStatus[status.upper()]
+		return Task(task_id=next_id, name=name, status=enum_status)
 
 	def add_new_task(self, task: Task) -> List:
 		"""
