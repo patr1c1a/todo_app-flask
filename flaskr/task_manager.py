@@ -1,19 +1,28 @@
-from flaskr.task import Task
+from typing import List
+from flaskr.task import Task, TaskStatus
 
 
 class TaskManager:
 	def __init__(self) -> None:
 		self.storage = []
 
-	def add_new_task(self, task_name, task_status) -> list:
+	def create_task(self, name: str, status: str) -> Task:
 		"""
-		Creates a new Task with the given parameters and then stores it. The storage uses a list for now.
+		Creates a new Task with the given parameters.
+		:param name: str
+		:param status: TaskStatus
+		:return: Task
+		"""
+		next_id = len(self.storage) + 1
+		status = TaskStatus[status.upper()]
+		return Task(task_id=next_id, name=name, status=status)
+
+	def add_new_task(self, task: Task) -> List:
+		"""
+		Stores the task. The storage uses a list for now.
 		TODO: change storage to database. next_id will be replaced with a database generated id.
-		:param task_name: str
-		:param task_status:
-		:return:
+		:param task: Task
+		:return: List
 		"""
-		next_id = len(self.storage)+1
-		task = Task(next_id, task_name, task_status)
 		self.storage.append(task)
 		return self.storage
