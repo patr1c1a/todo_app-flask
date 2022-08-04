@@ -18,6 +18,13 @@ def add() -> Response:
     return jsonify([task.serialize() for task in tasks])
 
 
+@app.route('/delete/', methods=["POST"])
+def delete() -> Response:
+    task_id = int(request.args.get("task_id"))
+    result = manager.delete_task(task_id=task_id)
+    return jsonify(result)
+
+
 if __name__ == '__main__':
     manager = TaskManager()
     app.run(debug=True)
