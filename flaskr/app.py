@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify, Response
 from flaskr.task_manager import TaskManager
+from flaskr.task import TaskStatus
 
 app = Flask(__name__)
 
@@ -31,7 +32,19 @@ def delete() -> Response:
     return jsonify(result)
 
 
-
+@app.route('/list_tasks/')
+def list_tasks() -> Response:
+    """
+    Endpoint (supported verbs: GET).
+    Gets a list of tasks in storage. If the request has no parameters, it lists all tasks.
+    If the request has a 'task_status' parameter (which can either be 'done' or 'pending'), it returns a filtered list.
+    :return: Response (JSON)
+    """
+    status = request.args.get("task_status")
+    if status:
+        filtered = manager.filter_tasks(TaskStatus[status.upper()])
+        return jsonify([task.serialize() for task in filtered])
+    return jsonify([task.serialize() for task in manager.storage])
 
 
 if __name__ == '__main__':
