@@ -20,9 +20,18 @@ def add() -> Response:
 
 @app.route('/delete/', methods=["POST"])
 def delete() -> Response:
+    """
+    Endpoint (supported verbs: POST).
+    Gets a task id as a parameter from the request and then removes the matching task from storage.
+    Returns true if the task was found and deleted, false otherwise.
+    :return: Response (JSON)
+    """
     task_id = int(request.args.get("task_id"))
     result = manager.delete_task(task_id=task_id)
     return jsonify(result)
+
+
+
 
 
 if __name__ == '__main__':
