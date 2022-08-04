@@ -40,3 +40,11 @@ class TaskManager:
 				self.storage.remove(task)
 				deleted = True
 		return deleted
+
+	def filter_tasks(self, status: TaskStatus) -> List:
+		"""
+		Creates a new list containing the tasks with the specified status.
+		:param status: TaskStatus
+		:return: List
+		"""
+		return [task for task in self.storage if task.status == status]
