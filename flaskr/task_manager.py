@@ -48,3 +48,18 @@ class TaskManager:
 		:return: List
 		"""
 		return [task for task in self.storage if task.status == status]
+
+	def mark_task(self, task_id: int, status: str) -> bool:
+		"""
+		Given a task id, it changes the task status if it's found in storage.
+		Returns True if operation was successful (i.e.: the item was found and marked), False otherwise.
+		:param task_id: int
+		:param status: str
+		:return: bool
+		"""
+		marked = False
+		for task in self.storage:
+			if task.id == task_id:
+				task.status = TaskStatus[status.upper()]
+				marked = True
+		return marked
