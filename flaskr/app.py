@@ -40,9 +40,9 @@ def list_tasks() -> Response:
     If the request has a 'task_status' parameter (which can either be 'done' or 'pending'), it returns a filtered list.
     :return: Response (JSON)
     """
-    status = request.args.get("task_status")
-    if status:
-        filtered = manager.filter_tasks(TaskStatus[status.upper()])
+    task_status = request.args.get("task_status")
+    if task_status:
+        filtered = manager.filter_tasks(task_status)
         return jsonify([task.serialize() for task in filtered])
     return jsonify([task.serialize() for task in manager.storage])
 
