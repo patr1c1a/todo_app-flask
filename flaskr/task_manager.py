@@ -41,13 +41,13 @@ class TaskManager:
 				deleted = True
 		return deleted
 
-	def filter_tasks(self, status: TaskStatus) -> List:
+	def filter_tasks(self, status: str) -> List:
 		"""
 		Creates a new list containing the tasks with the specified status.
-		:param status: TaskStatus
+		:param status: str
 		:return: List
 		"""
-		return [task for task in self.storage if task.status == status]
+		return [task for task in self.storage if task.status == TaskStatus[status.upper()]]
 
 	def mark_task(self, task_id: int, status: str) -> bool:
 		"""
