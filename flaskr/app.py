@@ -56,8 +56,8 @@ def list_tasks() -> Response:
     return jsonify([task.serialize() for task in manager.storage])
 
 
-@app.route("/mark/", methods=["PUT"])
-def mark() -> Response:
+@app.route("/change_status/", methods=["PUT"])
+def change_status() -> Response:
     """
     Endpoint.
     Gets a task id as a parameter from the request and then changes the matching task's status.
