@@ -19,7 +19,7 @@ def add() -> Response:
     return jsonify([task.serialize() for task in tasks])
 
 
-@app.route("/delete/", methods=["POST"])
+@app.route("/delete/", methods=["DELETE"])
 def delete() -> Response:
     """
     Endpoint (supported verbs: POST).
