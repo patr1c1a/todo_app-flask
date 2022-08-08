@@ -4,7 +4,7 @@ from flaskr.task_manager import TaskManager
 app = Flask(__name__)
 
 
-@app.route('/add/', methods=["POST"])
+@app.route("/add/", methods=["POST"])
 def add() -> Response:
     """
     Endpoint (supported verbs: POST).
@@ -18,6 +18,19 @@ def add() -> Response:
     return jsonify([task.serialize() for task in tasks])
 
 
-if __name__ == '__main__':
+@app.route("/delete/", methods=["DELETE"])
+def delete() -> Response:
+    """
+    Endpoint (supported verbs: DELETE).
+    Gets a task id as a parameter from the request and then removes the matching task from storage.
+    Returns true if the task was found and deleted, false otherwise.
+    :return: Response (JSON)
+    """
+    task_id = int(request.args.get("task_id"))
+    result = manager.delete_task(task_id=task_id)
+    return jsonify(result)
+
+
+if __name__ == "__main__":
     manager = TaskManager()
     app.run(debug=True)
