@@ -1,6 +1,5 @@
 from flask import Flask, request, jsonify, Response
 from flaskr.task_manager import TaskManager
-from flaskr.task import TaskStatus
 
 app = Flask(__name__)
 
