@@ -51,7 +51,7 @@ class TaskManager:
             task for task in self.storage if task.status == TaskStatus[status.upper()]
         ]
 
-    def mark_task(self, task_id: int, status: str) -> bool:
+    def change_status(self, task_id: int, status: str) -> bool:
         """
         Given a task id, it changes the task status if it's found in storage.
         Returns True if operation was successful (i.e.: the item was found and marked), False otherwise.
