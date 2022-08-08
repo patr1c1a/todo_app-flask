@@ -4,7 +4,7 @@ from flaskr.task_manager import TaskManager
 app = Flask(__name__)
 
 
-@app.route('/add/')
+@app.route("/add/")
 def add() -> Response:
     """
     Endpoint (supported verbs: GET).
@@ -18,7 +18,7 @@ def add() -> Response:
     return jsonify([task.serialize() for task in tasks])
 
 
-@app.route('/delete/', methods=["POST"])
+@app.route("/delete/", methods=["DELETE"])
 def delete() -> Response:
     """
     Endpoint (supported verbs: POST).
@@ -31,9 +31,6 @@ def delete() -> Response:
     return jsonify(result)
 
 
-
-
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     manager = TaskManager()
     app.run(debug=True)
