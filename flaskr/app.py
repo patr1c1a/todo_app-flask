@@ -21,7 +21,7 @@ def add() -> Response:
 @app.route("/delete/", methods=["DELETE"])
 def delete() -> Response:
     """
-    Endpoint (supported verbs: POST).
+    Endpoint (supported verbs: DELETE).
     Gets a task id as a parameter from the request and then removes the matching task from storage.
     Returns true if the task was found and deleted, false otherwise.
     :return: Response (JSON)
