@@ -56,10 +56,10 @@ def list_tasks() -> Response:
     return jsonify([task.serialize() for task in manager.storage])
 
 
-@app.route("/mark/", methods=["GET", "POST"])
+@app.route("/mark/", methods=["PUT"])
 def mark() -> Response:
     """
-    Endpoint (supported verbs: GET, POST).
+    Endpoint.
     Gets a task id as a parameter from the request and then changes the matching task's status.
     Returns true if the task was found and marked, false otherwise.
     :return: Response (JSON)
@@ -68,9 +68,6 @@ def mark() -> Response:
     task_status = request.args.get("task_status")
     result = manager.mark_task(task_id=task_id, status=task_status)
     return jsonify(result)
-    task = manager.create_task(name=task_name, status=task_status)
-    tasks = manager.add_task(task=task)
-    return jsonify([task.serialize() for task in tasks])
 
 
 @app.route("/delete/", methods=["DELETE"])
