@@ -54,3 +54,19 @@ class DbManager:
                 sql += " WHERE status = ?"
             cur.execute(sql, params)
             return cur.fetchall()
+
+    def update_task(self, task_id: int, status: str) -> int:
+        """
+        Updates the task matching the given id in the database. Returns number of rows affected (1 if task was found,
+        0 if it wasn't).
+        :param task_id: int
+        :param status: str
+        :return: int
+        """
+        params = [status, task_id]
+        sql = "UPDATE tasks SET status = ? WHERE task_id = ?"
+        with closing(sqlite3.connect(self.db_name)) as con, con, closing(
+            con.cursor()
+        ) as cur:
+            cur.execute(sql, params)
+            return cur.rowcount

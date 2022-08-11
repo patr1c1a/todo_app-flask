@@ -47,13 +47,14 @@ def list_tasks() -> Response:
 def change_status() -> Response:
     """
     Endpoint.
-    Gets a task id as a parameter from the request and then changes the matching task's status.
-    Returns true if the task was found and marked, false otherwise.
+    Gets a task id as a parameter and updates the task status for the matching row in the database.
+    If the new status is the same as the old status, the update is still executed but no change will be perceived.
+    Returns true if the task was found in the database, false otherwise.
     :return: Response (JSON)
     """
     task_id = int(request.args.get("task_id"))
-    task_status = request.args.get("task_status")
-    result = manager.change_status(task_id=task_id, status=task_status)
+    new_status = request.args.get("task_status")
+    result = manager.change_status(task_id=task_id, status=new_status)
     return jsonify(result)
 
 

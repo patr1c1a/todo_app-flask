@@ -42,15 +42,12 @@ class TaskManager:
 
     def change_status(self, task_id: int, status: str) -> bool:
         """
-        Given a task id, it changes the task status if it's found in storage.
-        Returns True if operation was successful (i.e.: the item was found and marked), False otherwise.
+        Given a task id, it updates the task status if it's found in the database.
+        Returns True if update was successful (i.e.: the item was found and updated), False otherwise.
         :param task_id: int
         :param status: str
         :return: bool
         """
-        marked = False
-        for task in self.storage:
-            if task.id == task_id:
-                task.status = TaskStatus[status.upper()]
-                marked = True
-        return marked
+        enum_status = TaskStatus[status.upper()]
+        result = self.storage.update_task(task_id=task_id, status=enum_status)
+        return result == 1
