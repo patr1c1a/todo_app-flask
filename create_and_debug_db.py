@@ -20,7 +20,7 @@ def populate_test_data():
     """
     Use this to insert test data in the database
     """
-    records = [("test task pending", "pending"), ("test task done", "done")]
+    records = [("test task pending", "PENDING"), ("test task done", "DONE")]
     sql = "INSERT INTO tasks (name,status) VALUES (?,?)"
     with closing(sqlite3.connect(db_name)) as con, con, closing(con.cursor()) as cur:
         cur.executemany(sql, records)
