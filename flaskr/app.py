@@ -13,9 +13,8 @@ def add() -> Response:
     """
     task_name = request.args.get("task_name")
     task_status = request.args.get("task_status")
-    task = manager.create_task(name=task_name, status=task_status)
-    tasks = manager.add_task(task=task)
-    return jsonify([task.serialize() for task in tasks])
+    result = manager.add_task(name=task_name, status=task_status)
+    return jsonify(result)
 
 
 @app.route("/delete/", methods=["DELETE"])
