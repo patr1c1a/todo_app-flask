@@ -1,3 +1,4 @@
+from typing import List
 import sqlite3
 from contextlib import closing
 
@@ -35,3 +36,21 @@ class DbManager:
         ) as cur:
             cur.execute(sql, params)
             return cur.rowcount
+
+    def list_tasks(self, status_filter: str) -> List:
+        """
+        Gets tasks from the database. If there's a status_filter, it returns only tasks matching it. If status_filter
+        is None, it returns all rows in the table.
+        :param status_filter: str
+        :return: List
+        """
+        params = []
+        sql = "SELECT * FROM tasks"
+        with closing(sqlite3.connect(self.db_name)) as con, con, closing(
+            con.cursor()
+        ) as cur:
+            if status_filter:
+                params.append(status_filter)
+                sql += " WHERE status = ?"
+            cur.execute(sql, params)
+            return cur.fetchall()

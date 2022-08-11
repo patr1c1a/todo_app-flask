@@ -29,15 +29,16 @@ class TaskManager:
         result = self.storage.delete_task(task_id=task_id)
         return result == 1
 
-    def filter_tasks(self, status: str) -> List:
+    def list_tasks(self, status: str) -> List:
         """
         Creates a new list containing the tasks with the specified status.
         :param status: str
         :return: List
         """
-        return [
-            task for task in self.storage if task.status == TaskStatus[status.upper()]
-        ]
+        enum_status = None
+        if status:
+            enum_status = TaskStatus[status.upper()]
+        return self.storage.list_tasks(status_filter=enum_status)
 
     def change_status(self, task_id: int, status: str) -> bool:
         """
