@@ -21,17 +21,13 @@ class TaskManager:
 
     def delete_task(self, task_id: int) -> bool:
         """
-        Given a task id, it removes a task from storage if its id matches the parameter.
+        Given a task id, it removes the task if found.
         Returns True if deletion was successful (i.e.: the item was found and deleted), False otherwise.
         :param task_id: int
         :return: bool
         """
-        deleted = False
-        for task in self.storage:
-            if task.id == task_id:
-                self.storage.remove(task)
-                deleted = True
-        return deleted
+        result = self.storage.delete_task(task_id=task_id)
+        return result == 1
 
     def filter_tasks(self, status: str) -> List:
         """

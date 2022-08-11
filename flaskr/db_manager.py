@@ -20,3 +20,18 @@ class DbManager:
         ) as cur:
             cur.execute(sql, params)
             return cur.lastrowid
+
+    def delete_task(self, task_id: int) -> int:
+        """
+        Deletes from the database the task matching the given id. Returns number of rows deleted (1 if task was found,
+        0 if it wasn't).
+        :param task_id: int
+        :return: int
+        """
+        params = [task_id]
+        sql = "DELETE FROM tasks WHERE task_id = ?"
+        with closing(sqlite3.connect(self.db_name)) as con, con, closing(
+            con.cursor()
+        ) as cur:
+            cur.execute(sql, params)
+            return cur.rowcount
