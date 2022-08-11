@@ -42,4 +42,4 @@ def view_table(table):
 # Only call create_db() before running the app for the first time
 # create_db()
 # populate_test_data()
-view_table("tasks")
+# view_table("tasks")
