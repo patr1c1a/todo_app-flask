@@ -63,9 +63,11 @@ class DbManager:
         if status_filter:
             params = (status_filter,)
             sql += " WHERE status = ?"
-            return self.run_query(sql, params)[1]
+            result = self.run_query(sql, params)
+            return result[1]
         else:
-            return self.run_query(sql)[1]
+            result = self.run_query(sql)
+            return result[1]
 
     def update_task(self, task_id: int, status: str) -> int:
         """
