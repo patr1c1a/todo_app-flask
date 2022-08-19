@@ -8,7 +8,7 @@ class DbManager:
     def __init__(self) -> None:
         self.db_name = "todo_app.db"
 
-    def run_query(self, sql: str, parameters=()) -> Tuple:
+    def run_query(self, sql: str, parameters=()) -> Tuple[sqlite3.Cursor, List]:
         """
         Runs a query in the database, with the given SQL and optional parameters. Returns a tuple where the first
         element is the closed cursor (so lastrowid or rowcount can be obtained from it) and the second element is a
