@@ -13,9 +13,8 @@ def add() -> Response:
     """
     task_name = request.args.get("task_name")
     task_status = request.args.get("task_status")
-    task = manager.create_task(name=task_name, status=task_status)
-    tasks = manager.add_task(task=task)
-    return jsonify([task.serialize() for task in tasks])
+    result = manager.add_task(name=task_name, status=task_status)
+    return jsonify(result)
 
 
 @app.route("/delete/", methods=["DELETE"])
@@ -35,28 +34,27 @@ def delete() -> Response:
 def list_tasks() -> Response:
     """
     Endpoint.
-    Gets a list of tasks in storage. If the request has no parameters, it lists all tasks.
+    Lists tasks. If the request has no parameters, it lists all tasks.
     If the request has a 'task_status' parameter (which can either be 'done' or 'pending'), it returns a filtered list.
     :return: Response (JSON)
     """
     task_status = request.args.get("task_status")
-    if task_status:
-        filtered = manager.filter_tasks(task_status)
-        return jsonify([task.serialize() for task in filtered])
-    return jsonify([task.serialize() for task in manager.storage])
+    result = manager.list_tasks(status=task_status)
+    return jsonify(result)
 
 
 @app.route("/change_status/", methods=["PUT"])
 def change_status() -> Response:
     """
     Endpoint.
-    Gets a task id as a parameter from the request and then changes the matching task's status.
-    Returns true if the task was found and marked, false otherwise.
+    Gets a task id as a parameter and updates the task status for the matching row in the database.
+    If the new status is the same as the old status, the update is still executed but no change will be perceived.
+    Returns true if the task was found in the database, false otherwise.
     :return: Response (JSON)
     """
     task_id = int(request.args.get("task_id"))
-    task_status = request.args.get("task_status")
-    result = manager.change_status(task_id=task_id, status=task_status)
+    new_status = request.args.get("task_status")
+    result = manager.change_status(task_id=task_id, status=new_status)
     return jsonify(result)
 
 

@@ -1,67 +1,58 @@
+import enum
 from typing import List
-from flaskr.task import Task, TaskStatus
+from flaskr.db_manager import DbManager
+
+
+class TaskStatus(str, enum.Enum):
+    PENDING = "PENDING"
+    DONE = "DONE"
 
 
 class TaskManager:
     def __init__(self) -> None:
-        self.storage = []
+        self.storage = DbManager()
 
-    def create_task(self, name: str, status: str) -> Task:
+    def add_task(self, name: str, status: str) -> int:
         """
-        Creates a new Task with the given parameters.
+        Sends the parameters to the storage handler which inserts them into the DB as a new task. Returns the id of the
+        newly created task.
         :param name: str
-        :param status: TaskStatus
-        :return: Task
+        :param status: str
+        :return: int
         """
-        next_id = len(self.storage) + 1
         enum_status = TaskStatus[status.upper()]
-        return Task(task_id=next_id, name=name, status=enum_status)
-
-    def add_task(self, task: Task) -> List:
-        """
-        Stores the task. The storage uses a list for now.
-        TODO: change storage to database. next_id will be replaced with a database generated id.
-        :param task: Task
-        :return: List
-        """
-        self.storage.append(task)
-        return self.storage
+        inserted_id = self.storage.insert_task(task_name=name, task_status=enum_status)
+        return inserted_id
 
     def delete_task(self, task_id: int) -> bool:
         """
-        Given a task id, it removes a task from storage if its id matches the parameter.
+        Given a task id, it removes the task if found.
         Returns True if deletion was successful (i.e.: the item was found and deleted), False otherwise.
         :param task_id: int
         :return: bool
         """
-        deleted = False
-        for task in self.storage:
-            if task.id == task_id:
-                self.storage.remove(task)
-                deleted = True
-        return deleted
+        result = self.storage.delete_task(task_id=task_id)
+        return result == 1
 
-    def filter_tasks(self, status: str) -> List:
+    def list_tasks(self, status: str) -> List:
         """
-        Creates a new list containing the tasks with the specified status.
+        Lists tasks with the specified status (all tasks if no status is given).
         :param status: str
         :return: List
         """
-        return [
-            task for task in self.storage if task.status == TaskStatus[status.upper()]
-        ]
+        enum_status = None
+        if status:
+            enum_status = TaskStatus[status.upper()]
+        return self.storage.list_tasks(status_filter=enum_status)
 
     def change_status(self, task_id: int, status: str) -> bool:
         """
-        Given a task id, it changes the task status if it's found in storage.
-        Returns True if operation was successful (i.e.: the item was found and marked), False otherwise.
+        Given a task id, it updates the task status if it's found in the database.
+        Returns True if update was successful (i.e.: the item was found and updated), False otherwise.
         :param task_id: int
         :param status: str
         :return: bool
         """
-        marked = False
-        for task in self.storage:
-            if task.id == task_id:
-                task.status = TaskStatus[status.upper()]
-                marked = True
-        return marked
+        enum_status = TaskStatus[status.upper()]
+        result = self.storage.update_task(task_id=task_id, status=enum_status)
+        return result == 1
