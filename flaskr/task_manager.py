@@ -14,8 +14,8 @@ class TaskManager:
 
     def add_task(self, name: str, status: str) -> int:
         """
-        Stores the task. The storage uses a list for now.
-        TODO: change storage to database. next_id will be replaced with a database generated id.
+        Sends the parameters to the storage handler which inserts them into the DB as a new task. Returns the id of the
+        newly created task.
         :param name: str
         :param status: str
         :return: int
@@ -36,7 +36,7 @@ class TaskManager:
 
     def list_tasks(self, status: str) -> List:
         """
-        Creates a new list containing the tasks with the specified status.
+        Lists tasks with the specified status (all tasks if no status is given).
         :param status: str
         :return: List
         """
