@@ -8,7 +8,7 @@ app = Flask(__name__)
 def add() -> Response:
     """
     Endpoint.
-    Gets parameters from the request to create a new Task object, then adds it to storage.
+    Gets parameters from the request to create a new Task, then adds it to storage.
     :return: Response (JSON)
     """
     task_name = request.args.get("task_name")
