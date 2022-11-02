@@ -4,11 +4,11 @@ from flaskr.task_manager import TaskManager
 app = Flask(__name__)
 
 
-@app.route("/add/", methods=["POST"])
+@app.route("/task/", methods=["POST"])
 def add() -> Response:
     """
     Endpoint.
-    Gets parameters from the request to create a new Task object, then adds it to storage.
+    Gets parameters from the request to create a new Task, then adds it to storage.
     :return: Response (JSON)
     """
     task_name = request.args.get("task_name")
@@ -17,7 +17,7 @@ def add() -> Response:
     return jsonify(result)
 
 
-@app.route("/delete/", methods=["DELETE"])
+@app.route("/task/", methods=["DELETE"])
 def delete() -> Response:
     """
     Endpoint.
@@ -30,7 +30,7 @@ def delete() -> Response:
     return jsonify(result)
 
 
-@app.route("/list_tasks/", methods=["GET"])
+@app.route("/task/", methods=["GET"])
 def list_tasks() -> Response:
     """
     Endpoint.
@@ -43,7 +43,7 @@ def list_tasks() -> Response:
     return jsonify(result)
 
 
-@app.route("/change_status/", methods=["PUT"])
+@app.route("/task/", methods=["PUT"])
 def change_status() -> Response:
     """
     Endpoint.
