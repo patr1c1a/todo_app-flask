@@ -4,6 +4,10 @@ from task import TaskStatus
 
 
 class TaskManager:
+    """
+    Performs any additional data processesing.
+    """
+
     def __init__(self) -> None:
         self.storage = DbManager()
 
