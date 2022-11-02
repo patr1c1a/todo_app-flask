@@ -1,12 +1,6 @@
 from typing import Dict
-import deprecation
 
 
-@deprecation.deprecated(
-    deprecated_in="2.0",
-    removed_in="3.0",
-    details="Maybe this class is no longer needed?",
-)
 class Task:
     def __init__(self, task_id: int, name: str, status: TaskStatus) -> None:
         self.id = task_id
