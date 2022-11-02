@@ -1,4 +1,10 @@
 from typing import Dict
+from enum import Enum
+
+
+class TaskStatus(str, Enum):
+    PENDING = "PENDING"
+    DONE = "DONE"
 
 
 class Task:

@@ -1,11 +1,6 @@
-import enum
 from typing import List
 from flaskr.db_manager import DbManager
-
-
-class TaskStatus(str, enum.Enum):
-    PENDING = "PENDING"
-    DONE = "DONE"
+from task import TaskStatus
 
 
 class TaskManager:
